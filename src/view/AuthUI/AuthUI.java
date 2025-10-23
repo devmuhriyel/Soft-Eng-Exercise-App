@@ -9,20 +9,38 @@ public class AuthUI extends JFrame {
     private final JPanel mainPanel;
 
     public AuthUI() {
-        setTitle("LogIn/SignUP");
+        setTitle("GrindLine");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1200, 800);
         setLocationRelativeTo(null);
         setResizable(false);
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
+        mainPanel.setBackground(Color.WHITE);
+
+        ImageIcon logoIcon = new ImageIcon("src/Resources/pngwing.com.png");
+        Image image = logoIcon.getImage().getScaledInstance(400, 200, Image.SCALE_SMOOTH);
+        logoIcon = new ImageIcon(image);
+
+        JLabel logoLabel = new JLabel(logoIcon);
+        logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         mainPanel.add(createLoginPanel(),"login");
         mainPanel.add(createSignupPanel(),"signup");
 
-        add(mainPanel);
+        JPanel wrapper = new JPanel();
+        wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.Y_AXIS));
+        wrapper.setBackground(Color.WHITE);
+        wrapper.add(Box.createVerticalStrut(60));
+        wrapper.add(logoLabel);
+        wrapper.add(Box.createVerticalStrut(40));
+        wrapper.add(mainPanel);
+        add(wrapper);
+
         cardLayout.show(mainPanel,"login");
     }
+
+
 
     private JPanel createLoginPanel(){
         JPanel panel = new JPanel();
@@ -35,11 +53,11 @@ public class AuthUI extends JFrame {
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JTextField usernameField = new JTextField(15);
-        usernameField.setMaximumSize(new Dimension(Integer.MAX_VALUE,30));
+        usernameField.setMaximumSize(new Dimension(300, 40));
         usernameField.setBorder(BorderFactory.createTitledBorder("Username"));
 
         JPasswordField passwordField = new JPasswordField(15);
-        passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE,30));
+        passwordField.setMaximumSize(new Dimension(300, 40));
         passwordField.setBorder(BorderFactory.createTitledBorder("Password"));
 
         JButton loginButton = new JButton("Login");
@@ -93,15 +111,15 @@ public class AuthUI extends JFrame {
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JTextField usernameField = new JTextField(15);
-        usernameField.setMaximumSize(new Dimension(Integer.MAX_VALUE,30));
+        usernameField.setMaximumSize(new Dimension(300, 40));
         usernameField.setBorder(BorderFactory.createTitledBorder("Username"));
 
         JTextField emailField = new JTextField(15);
-        emailField.setMaximumSize(new Dimension(Integer.MAX_VALUE,30));
+        emailField.setMaximumSize(new Dimension(300, 40));
         emailField.setBorder(BorderFactory.createTitledBorder("Email"));
 
         JTextField passwordField = new JTextField(15);
-        passwordField.setMaximumSize(new Dimension(Integer.MAX_VALUE,30));
+        passwordField.setMaximumSize(new Dimension(300, 40));
         passwordField.setBorder(BorderFactory.createTitledBorder("Password"));
 
         JButton signupButton = new JButton("Sign Up");
