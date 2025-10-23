@@ -32,10 +32,4 @@ public class GrindLineUI extends JFrame {
         add(mainPanel);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            GrindLineUI frame = new GrindLineUI();
-            frame.setVisible(true);
-        });
-    }
 }
