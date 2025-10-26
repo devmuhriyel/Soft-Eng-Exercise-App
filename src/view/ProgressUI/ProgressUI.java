@@ -17,48 +17,43 @@ public class ProgressUI extends JPanel {
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
 
-        // ===== Header =====
+        // ===== HEADER =====
         titleLabel = new JLabel("Progress Summary", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Segoe UI Semibold", Font.BOLD, 32));
         titleLabel.setForeground(new Color(30, 60, 114));
-        titleLabel.setBorder(new EmptyBorder(30, 0, 30, 0));
+        titleLabel.setBorder(new EmptyBorder(30, 0, 20, 0));
         add(titleLabel, BorderLayout.NORTH);
 
-        // ===== Center Content =====
+        // ===== CENTER CONTENT =====
         JPanel centerPanel = new JPanel();
         centerPanel.setBackground(Color.WHITE);
-        centerPanel.setLayout(new GridBagLayout());
-        centerPanel.setBorder(new EmptyBorder(20, 40, 20, 40));
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        centerPanel.setBorder(new EmptyBorder(20, 200, 20, 200)); // fits nicely on 1200x800
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(20, 10, 20, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.CENTER;
-
-        // Exercise count
+        // Exercise Count Label
         exerciseCountLabel = new JLabel("Total Exercises: 0", SwingConstants.CENTER);
         exerciseCountLabel.setFont(new Font("Segoe UI", Font.PLAIN, 22));
         exerciseCountLabel.setForeground(new Color(50, 50, 50));
         exerciseCountLabel.setOpaque(true);
         exerciseCountLabel.setBackground(Color.WHITE);
-        exerciseCountLabel.setPreferredSize(new Dimension(800, 60));
+        exerciseCountLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        exerciseCountLabel.setMaximumSize(new Dimension(800, 60));
         exerciseCountLabel.setBorder(new CompoundBorder(
                 new LineBorder(new Color(230, 230, 230), 1, true),
                 new EmptyBorder(10, 15, 10, 15)
         ));
-        centerPanel.add(exerciseCountLabel, gbc);
+        centerPanel.add(exerciseCountLabel);
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        // Goal label
-        gbc.gridy++;
+        // Goal Label
         goalLabel = new JLabel("Goal Progress:", SwingConstants.CENTER);
         goalLabel.setFont(new Font("Segoe UI", Font.PLAIN, 20));
         goalLabel.setForeground(new Color(80, 80, 80));
-        centerPanel.add(goalLabel, gbc);
+        goalLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        centerPanel.add(goalLabel);
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        // Progress bar
-        gbc.gridy++;
+        // Progress Bar
         progressBar = new JProgressBar(0, 100);
         progressBar.setValue(65);
         progressBar.setStringPainted(true);
@@ -66,11 +61,12 @@ public class ProgressUI extends JPanel {
         progressBar.setForeground(new Color(80, 140, 255));
         progressBar.setBackground(new Color(230, 230, 230));
         progressBar.setBorderPainted(false);
-        progressBar.setPreferredSize(new Dimension(800, 40));
-        centerPanel.add(progressBar, gbc);
+        progressBar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        progressBar.setMaximumSize(new Dimension(800, 40));
+        centerPanel.add(progressBar);
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        // Statistics text area
-        gbc.gridy++;
+        // Statistics Area
         statisticsArea = new JTextArea(8, 25);
         statisticsArea.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         statisticsArea.setForeground(new Color(70, 70, 70));
@@ -86,12 +82,13 @@ public class ProgressUI extends JPanel {
         ));
         JScrollPane scrollPane = new JScrollPane(statisticsArea);
         scrollPane.setBorder(null);
-        scrollPane.setPreferredSize(new Dimension(800, 200));
-        centerPanel.add(scrollPane, gbc);
+        scrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+        scrollPane.setMaximumSize(new Dimension(800, 200));
+        centerPanel.add(scrollPane);
 
         add(centerPanel, BorderLayout.CENTER);
 
-        // ===== Bottom Buttons =====
+        // ===== BOTTOM BUTTON =====
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 25));
         bottomPanel.setBackground(Color.WHITE);
 
@@ -101,15 +98,15 @@ public class ProgressUI extends JPanel {
         refreshButton.setBackground(new Color(30, 100, 255));
         refreshButton.setForeground(Color.WHITE);
         refreshButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        refreshButton.setBorder(new EmptyBorder(12, 30, 12, 30));
         refreshButton.setBorder(new LineBorder(new Color(20, 80, 220), 1, true));
         refreshButton.setOpaque(true);
+        refreshButton.setPreferredSize(new Dimension(220, 45));
 
         bottomPanel.add(refreshButton);
         add(bottomPanel, BorderLayout.SOUTH);
     }
 
-    // ===== Public Methods (for MVC) =====
+    // ===== MVC Accessors =====
     public void setExerciseCount(int count) {
         exerciseCountLabel.setText("Total Exercises: " + count);
     }
@@ -125,5 +122,4 @@ public class ProgressUI extends JPanel {
     public JButton getRefreshButton() {
         return refreshButton;
     }
-
 }
